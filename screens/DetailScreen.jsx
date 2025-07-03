@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { View, Text, Image, StyleSheet, ScrollView, Dimensions } from 'react-native';
+import { View, Text, Image, StyleSheet, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ThemeContext } from "../components/ThemeContext";
 
 const { width } = Dimensions.get('window');
 
-export default function ParkDetailScreen({ route }) {
+export default function ParkDetailScreen({ route, navigation }) {
     const { park } = route.params;
     const { theme } = useContext(ThemeContext);
     const [liked, setLiked] = useState(false);
@@ -20,12 +20,10 @@ export default function ParkDetailScreen({ route }) {
 
     const STORAGE_KEY = '@liked_park_ids';
 
-    // Check if park is liked on mount
     useEffect(() => {
         async function checkLiked() {
             try {
                 const likedIdsJson = await AsyncStorage.getItem(STORAGE_KEY);
-                console.log('likedIds', likedIdsJson);
                 const likedIds = likedIdsJson ? JSON.parse(likedIdsJson) : [];
                 setLiked(likedIds.includes(park.ID));
             } catch (error) {
@@ -46,6 +44,14 @@ export default function ParkDetailScreen({ route }) {
             <View style={styles.textContainer}>
                 <Text style={[styles.name, { color: theme.text }]}>{park.name}</Text>
                 <Text style={[styles.description, { color: theme.text }]}>{park.description}</Text>
+
+                {/* Button to navigate to CompassScreen */}
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('Compass', { target: park.coordinates })}
+                    style={[styles.compassButton, { backgroundColor: theme.surface }]}
+                >
+                    <Text style={[styles.compassButtonText, { color: theme.text }]}>Show Compass</Text>
+                </TouchableOpacity>
             </View>
             <MapView style={styles.map} initialRegion={region}>
                 <Marker
@@ -78,7 +84,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 12,
         borderRadius: 12,
         zIndex: 10,
-        elevation: 10, // for Android shadow
+        elevation: 10,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.3,
@@ -97,6 +103,16 @@ const styles = StyleSheet.create({
     },
     description: {
         fontSize: 16,
+    },
+    compassButton: {
+        marginTop: 20,
+        paddingVertical: 12,
+        borderRadius: 10,
+        alignItems: 'center',
+    },
+    compassButtonText: {
+        fontSize: 16,
+        fontWeight: 'bold',
     },
     map: {
         width: width,

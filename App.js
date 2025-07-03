@@ -9,6 +9,7 @@ import MapScreen from './screens/MapScreen';
 import ThemeSettingsScreen from "./screens/ThemeSettings";
 import ParkListScreen from "./screens/ListScreen";
 import ParkDetailScreen from "./screens/DetailScreen";
+import CompassScreen from "./screens/CompassScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -36,6 +37,7 @@ function Navigator() {
                 <Stack.Screen name="ThemeSettings" component={ThemeSettingsScreen} />
                 <Stack.Screen name="List" component={ParkListScreen} />
                 <Stack.Screen name="ParkDetail" component={ParkDetailScreen} />
+                <Stack.Screen name="Compass" component={CompassScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     );
