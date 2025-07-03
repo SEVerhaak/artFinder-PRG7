@@ -26,7 +26,7 @@ export default function HomeScreen({ navigation }) {
 
 const styles = StyleSheet.create({
     container: {
-        paddingTop: 75,
+        paddingTop: 20,
         paddingHorizontal: 20,
     },
     sectionTitle: {

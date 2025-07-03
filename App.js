@@ -1,9 +1,8 @@
-// App.js
-import React from 'react';
+import React, { useContext } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { ThemeProvider } from './components/ThemeContext'; // Import your ThemeProvider
+import { ThemeProvider, ThemeContext } from './components/ThemeContext';
 
 import HomeScreen from './screens/HomeScreen';
 import MapScreen from './screens/MapScreen';
@@ -13,18 +12,39 @@ import ParkDetailScreen from "./screens/DetailScreen";
 
 const Stack = createNativeStackNavigator();
 
+function Navigator() {
+    const { theme } = useContext(ThemeContext);
+
+    return (
+        <NavigationContainer>
+            <Stack.Navigator
+                initialRouteName="Home"
+                screenOptions={{
+                    headerShown: true,
+                    headerTintColor: '#007AFF',
+                    headerTitleStyle: {
+                        fontWeight: 'bold',
+                    },
+                    headerStyle: {
+                        backgroundColor: theme.surface,
+                    },
+                    headerBackTitleVisible: false,
+                }}
+            >
+                <Stack.Screen name="Home" component={HomeScreen} />
+                <Stack.Screen name="Map" component={MapScreen} />
+                <Stack.Screen name="ThemeSettings" component={ThemeSettingsScreen} />
+                <Stack.Screen name="List" component={ParkListScreen} />
+                <Stack.Screen name="ParkDetail" component={ParkDetailScreen} />
+            </Stack.Navigator>
+        </NavigationContainer>
+    );
+}
+
 export default function App() {
     return (
         <ThemeProvider>
-            <NavigationContainer>
-                <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
-                    <Stack.Screen name="Home" component={HomeScreen} />
-                    <Stack.Screen name="Map" component={MapScreen} />
-                    <Stack.Screen name="ThemeSettings" component={ThemeSettingsScreen} />
-                    <Stack.Screen name="List" component={ParkListScreen} />
-                    <Stack.Screen name="ParkDetail" component={ParkDetailScreen} />
-                </Stack.Navigator>
-            </NavigationContainer>
+            <Navigator />
         </ThemeProvider>
     );
 }

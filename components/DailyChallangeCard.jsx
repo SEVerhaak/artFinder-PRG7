@@ -17,7 +17,7 @@ export default function DailyChallengeCard({ progress, total, navigation }) {
             </Text>
 
             <Bar progress={percentage} width={null} height={10} color="#007bff" borderRadius={5} style={styles.progressBar} />
-            <Text style={styles.progressText}>{progress}/{total}</Text>
+            <Text style={[styles.progressText, {color: theme.text}]}>{progress}/{total}</Text>
             <Button title="Open map!" onPress={() => navigation.navigate('Map')} />
         </View>
     );

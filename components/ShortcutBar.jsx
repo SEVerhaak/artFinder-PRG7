@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { View, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Image, TouchableOpacity, Text } from 'react-native';
 import { ThemeContext } from './ThemeContext'; // Import ThemeContext
 
 export default function ShortcutBar({ navigation }) {
@@ -9,14 +9,17 @@ export default function ShortcutBar({ navigation }) {
         {
             icon: require('../assets/map.png'),
             route: 'Map',
+            text: 'Map',
         },
         {
-            icon: require('../assets/heart.png'),
+            icon: require('../assets/list.png'),
             route: 'List',
+            text: 'List',
         },
         {
             icon: require('../assets/settings.png'),
             route: 'ThemeSettings',
+            text: 'Settings',
         },
     ];
 
@@ -29,6 +32,7 @@ export default function ShortcutBar({ navigation }) {
                     onPress={() => navigation.navigate(item.route)}
                 >
                     <Image source={item.icon} style={styles.icon} />
+                    <Text style={{color: theme.text}}>{[item.text]}</Text>
                 </TouchableOpacity>
             ))}
         </View>
@@ -43,11 +47,11 @@ const styles = StyleSheet.create({
     },
     iconBox: {
         borderRadius: 20,
-        padding: 40,
+        padding: 30,
         alignItems: 'center',
     },
     icon: {
-        width: 45,
-        height: 45,
+        width: 40,
+        height: 40,
     },
 });
