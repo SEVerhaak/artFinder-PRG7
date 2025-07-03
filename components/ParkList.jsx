@@ -9,13 +9,16 @@ import {
     TouchableOpacity,
 } from 'react-native';
 
-export default function ParkList({ parks }) {
+export default function ParkList({ parks, navigation }) {
     const renderItem = ({ item }) => (
-        <TouchableOpacity style={styles.card}>
+        <TouchableOpacity
+            style={styles.card}
+            onPress={() => navigation.navigate('ParkDetail', { park: item })}
+        >
             <Image source={{ uri: item.image_url }} style={styles.image} />
             <View style={styles.textContainer}>
                 <Text style={styles.name}>{item.name}</Text>
-                <Text style={styles.description}>{item.description}</Text>
+                <Text style={styles.description} numberOfLines={2}>{item.description}</Text>
             </View>
         </TouchableOpacity>
     );
