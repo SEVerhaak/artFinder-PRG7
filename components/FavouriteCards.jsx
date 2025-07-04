@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import { View, Text, Image, StyleSheet, Button } from 'react-native';
 import { ThemeContext } from './ThemeContext'; // Import ThemeContext
 
-export default function FavouriteCard({ title, image, item, navigation }) {
+export default function FavouriteCard({ title, image}) {
 
     const { theme } = useContext(ThemeContext); // Get theme from context
 
