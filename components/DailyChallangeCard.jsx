@@ -13,7 +13,7 @@ export default function DailyChallengeCard({ progress, total, navigation }) {
         <View style={[styles.card, { backgroundColor: theme.surface }]}>
             <Text style={[styles.title, {color: theme.text}]}>
                 <Text style={styles.bold}>Daily Challenges:</Text>{"\n"}
-                Find {total} artworks near you
+                Find {total} parks near you
             </Text>
 
             <Bar progress={percentage} width={null} height={10} color="#007bff" borderRadius={5} style={styles.progressBar} />

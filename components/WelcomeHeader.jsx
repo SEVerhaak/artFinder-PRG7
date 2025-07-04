@@ -9,7 +9,7 @@ export default function WelcomeHeader({ username }) {
             <Text style={[styles.welcome, {color: theme.text}]}>
                 Welcome <Text style={[styles.username,  {color: theme.text}]}>{username}</Text>,
             </Text>
-            <Text style={[styles.sub,  {color: theme.text}]}>Let’s find some art today!</Text>
+            <Text style={[styles.sub,  {color: theme.text}]}>Let’s find some parks today!</Text>
         </View>
     );
 }

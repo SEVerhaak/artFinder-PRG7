@@ -2,14 +2,14 @@ import React, {useContext} from 'react';
 import { View, Text, Image, StyleSheet, Button } from 'react-native';
 import { ThemeContext } from './ThemeContext'; // Import ThemeContext
 
-export default function FavouriteCard({ title, image }) {
+export default function FavouriteCard({ title, image, item, navigation }) {
 
     const { theme } = useContext(ThemeContext); // Get theme from context
 
     return (
         <View style={[styles.card, { backgroundColor: theme.surface }]}>
             <Image source={image} style={styles.image} />
-            <Button title="Details" onPress={() => {}} />
+            <Button title="Details"/>
             <View style={styles.heart}>
                 <Text style={styles.heartText}>❤️</Text>
             </View>

@@ -2,7 +2,9 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import ParkList from '../components/ParkList';
+import Constants from 'expo-constants';
 
+const apiUrl = Constants.expoConfig.extra.apiUrl;
 export default function ParkListScreen({ navigation }) {
     const [parks, setParks] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -10,7 +12,7 @@ export default function ParkListScreen({ navigation }) {
     useEffect(() => {
         const fetchParks = async () => {
             try {
-                const response = await fetch('http://145.137.59.177:8001/parks');
+                const response = await fetch(apiUrl);
                 const data = await response.json();
                 setParks(data.parkObject);
             } catch (error) {

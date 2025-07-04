@@ -2,8 +2,12 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { StyleSheet, View, Text } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import * as Location from 'expo-location';
-import { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { ThemeContext } from '../components/ThemeContext'; // Import ThemeContext
+import Constants from 'expo-constants';
+import ParkList from "../components/ParkList";
+
+const apiUrl = Constants.expoConfig.extra.apiUrl;
 
 function MapScreen({ navigation }) {
     const [location, setLocation] = useState(null);
@@ -25,7 +29,8 @@ function MapScreen({ navigation }) {
             });
 
             try {
-                const response = await fetch('http://145.137.59.177:8001/parks');
+                console.log(apiUrl);
+                const response = await fetch(`${apiUrl}`);
                 const data = await response.json();
                 setParks(data.parkObject || []);
             } catch (error) {
@@ -47,7 +52,7 @@ function MapScreen({ navigation }) {
 
     return (
         <SafeAreaProvider>
-            <View style={[styles.container, { backgroundColor: theme.surface }]}>
+            <View style={[styles.container, { backgroundColor: theme.background }]}>
                 <MapView
                     style={styles.map}
                     initialRegion={{
@@ -71,6 +76,7 @@ function MapScreen({ navigation }) {
                         />
                     ))}
                 </MapView>
+                <ParkList parks={parks} navigation={navigation} />
             </View>
         </SafeAreaProvider>
     );
@@ -86,7 +92,7 @@ const styles = StyleSheet.create({
     },
     map: {
         width: '100%',
-        height: '80%',
+        height: '50%',
     },
 });
 

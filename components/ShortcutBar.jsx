@@ -1,23 +1,30 @@
 import React, { useContext } from 'react';
-import { View, StyleSheet, Image, TouchableOpacity, Text } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import { ThemeContext } from './ThemeContext'; // Import ThemeContext
+import ClipboardIcon from './svg/clipboardIcon';
+import MapIcon from './svg/mapIcon';
+import SettingsIcon from './svg/settingsIcon';
 
 export default function ShortcutBar({ navigation }) {
     const { theme } = useContext(ThemeContext); // Get theme from context
 
+    // Map icon names to components
+    const iconComponents = {
+        Map: MapIcon,
+        List: ClipboardIcon,      // Assuming ClipboardIcon corresponds to List
+        ThemeSettings: SettingsIcon,
+    };
+
     const shortcuts = [
         {
-            icon: require('../assets/map.png'),
             route: 'Map',
             text: 'Map',
         },
         {
-            icon: require('../assets/list.png'),
             route: 'List',
             text: 'List',
         },
         {
-            icon: require('../assets/settings.png'),
             route: 'ThemeSettings',
             text: 'Settings',
         },
@@ -25,16 +32,19 @@ export default function ShortcutBar({ navigation }) {
 
     return (
         <View style={styles.row}>
-            {shortcuts.map((item, index) => (
-                <TouchableOpacity
-                    key={index}
-                    style={[styles.iconBox, { backgroundColor: theme.surface }]} // Use theme surface
-                    onPress={() => navigation.navigate(item.route)}
-                >
-                    <Image source={item.icon} style={styles.icon} />
-                    <Text style={{color: theme.text}}>{[item.text]}</Text>
-                </TouchableOpacity>
-            ))}
+            {shortcuts.map((item, index) => {
+                const IconComponent = iconComponents[item.route];
+                return (
+                    <TouchableOpacity
+                        key={index}
+                        style={[styles.iconBox, { backgroundColor: theme.surface }]} // Use theme surface
+                        onPress={() => navigation.navigate(item.route)}
+                    >
+                        <IconComponent width={50} color={"#007AFF"} />
+                        <Text style={{ color: theme.text }}>{item.text}</Text>
+                    </TouchableOpacity>
+                );
+            })}
         </View>
     );
 }
@@ -49,9 +59,5 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         padding: 30,
         alignItems: 'center',
-    },
-    icon: {
-        width: 40,
-        height: 40,
     },
 });

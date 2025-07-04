@@ -16,7 +16,7 @@ export default function HomeScreen({ navigation }) {
                 <WelcomeHeader username={"USER"} />
                 <DailyChallengeCard progress={2} total={3} navigation={navigation} />
                 <Text style={[styles.sectionTitle, { color: theme.text }]}>Favourites</Text>
-                <FavouriteCardList />
+                <FavouriteCardList navigation={navigation} />
                 <Text style={[styles.sectionTitle, { color: theme.text }]}>Shortcuts</Text>
                 <ShortcutBar navigation={navigation} />
             </ScrollView>
